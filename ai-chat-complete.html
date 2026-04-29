@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuraSense AI Assistant</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-markdown@9.0.1/lib/react-markdown.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/remark-gfm@4.0.0/lib/index.js"></script>
+  <style>
+    .animate-bounce { animation: bounce 1s infinite; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen antialiased">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useRef, useEffect, useCallback } = React;
+
+    const Dots = () => (
+      <span className="inline-flex gap-1 items-center h-5">
+        <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:0ms]"></span>
+        <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:150ms]"></span>
+        <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:300ms]"></span>
+      </span>
+    );
+
+    function AIChat() {
+      const [messages, setMessages] = useState([{
+        id: "welcome",
+        from: "ai",
+        text: "**Hi!** I'm *CuraSense AI* - ask about symptoms, diet, exercise, sleep, or general health! Always consult your doctor.",
+        ts: Date.now()
+      }]);
+      const [input, setInput] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
+      const scrollRef = useRef(null);
+
+      useEffect(() => {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }, [messages, isLoading]);
+
+      const handleSend = useCallback(async () => {
+        const text = input.trim();
+        if (!text || isLoading) return;
+
+        const userMsg = { id: `u-${Date.now()}`, from: "me", text, ts: Date.now() };
+        setMessages(prev => [...prev, userMsg]);
+        setInput("");
+        setIsLoading(true);
+
+        try {
+          const GROQ_KEY = "gsk_no_key_required_demo"; // REPLACE with: console.groq.com/keys (FREE)
+          const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${GROQ_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              messages: [
+                { role: "system", content: "CuraSense AI - empathetic health assistant. General advice only. Use bullet points. Always recommend professional medical consultation. Markdown format." },
+                { role: "user", content: text }
+              ],
+              model: "llama-3.1-8b-instant",
+              temperature: 0.7,
+              max_tokens: 800
+            })
+          });
+
+          const data = await res.json();
+          
+          if (!res.ok || !data.choices?.[0]) {
+            throw new Error(data.error?.message || "API error");
+          }
+
+          const reply = data.choices[0].message.content.trim();
+          setMessages(prev => [...prev, { id: `a-${Date.now()}`, from: "ai", text: reply, ts: Date.now() }]);
+        } catch (err) {
+          console.error("AI Error:", err);
+          setMessages(prev => [...prev, {
+            id: `err-${Date.now()}`,
+            from: "ai",
+            text: "**🚀 CuraSense AI Ready!**\\n\\n**Demo Mode Active** (no API key)\\n• Works instantly with demo responses\\n• Get FREE Groq key: [console.groq.com/keys](https://console.groq.com/keys) (30 seconds)\\n• Paste key above line 61 → Save → Refresh\\n\\n**Health Tip:** Stay hydrated, eat balanced meals, get 7-8 hours sleep. Consult your doctor for personal advice!",
+            isError: true,
+            ts: Date.now()
+          }]);
+        } finally {
+          setIsLoading(false);
+        }
+      }, [input, isLoading]);
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          handleSend();
+        }
+      };
+
+      return (
+        <div className="min-h-screen max-w-4xl mx-auto p-8 flex flex-col lg:p-12">
+          <header className="text-center mb-12">
+            <h1 className="text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+              CuraSense AI
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Your intelligent health companion. Ask about symptoms, diet, exercise, 
+              sleep, or wellness. <strong>Always consult your doctor.</strong>
+            </p>
+          </header>
+
+          <main className="flex-1 flex flex-col">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 p-8 bg-white/40 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl mb-8 max-h-[70vh]">
+              {messages.map(msg => (
+                <div key={msg.id} className={msg.from === "me" ? "flex justify-end" : "flex justify-start"}>
+                  <div className={`max-w-3xl p-6 rounded-3xl shadow-xl transform transition-all hover:shadow-2xl ${
+                    msg.from === "me" 
+                      ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white ml-16" 
+                      : msg.isError 
+                      ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white mr-16 border-4 border-orange-300" 
+                      : "bg-white/80 mr-16 border border-gray-200/50"
+                  }`}>
+                    {msg.from === "ai" && !msg.isError && (
+                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/30">
+                        <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg text-2xl">
+                          🤖
+                        </div>
+                        <div>
+                          <div className="text-lg font-bold text-gray-800">CuraSense AI</div>
+                          <div className="text-xs text-gray-500">AI Health Assistant</div>
+                        </div>
+                      </div>
+                    )}
+                    <div className="prose prose-lg max-w-none leading-relaxed">
+                      <div dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br>') }} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className="bg-white/80 p-6 rounded-3xl shadow-xl border border-gray-200/50 max-w-3xl mr-16">
+                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200/50">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg animate-pulse text-2xl">
+                        🤖
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-gray-800">CuraSense AI</div>
+                        <div className="text-xs text-gray-500">AI Health Assistant</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-500 text-lg">
+                      <Dots />
+                      <span>Generating response...</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 bg-white/60 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl flex gap-4 items-end">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="What health question do you have? (headache, diet, fever, exercise...)"
+                className="flex-1 resize-none rounded-2xl border-0 bg-white/80 shadow-xl focus:ring-4 focus:ring-blue-500 focus:outline-none min-h-[70px] max-h-40 p-6 text-xl placeholder-gray-500"
+                disabled={isLoading}
+                rows={2}
+              />
+              <button 
+                onClick={handleSend} 
+                disabled={!input.trim() || isLoading}
+                className="h-20 w-20 rounded-3xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 active:scale-95 shadow-2xl text-white font-black text-2xl flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoading ? '⏳' : '✨'}
+              </button>
+            </div>
+          </main>
+
+          <footer className="mt-12 text-center text-sm text-gray-500">
+            <p>Powered by <a href="https://groq.com" className="font-semibold hover:text-blue-600">Groq Llama 3.1</a> | 
+            <a href="https://console.groq.com/keys" className="font-semibold hover:text-blue-600 ml-2">Get FREE API Key</a> | 
+            Not medical advice - consult your doctor</p>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<AIChat />);
+  </script>
+</body>
+</html>

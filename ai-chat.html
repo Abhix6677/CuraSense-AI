@@ -1,0 +1,178 @@
+��<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuraSense AI Assistant</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://esm.sh/react-markdown@9?dev"></script>
+  <script src="https://esm.sh/remark-gfm@4"></script>
+  <script src="https://esm.sh/lucide-react@0.462.0?dev"></script>
+  <script src="https://esm.sh/sonner@1.5.0?dev"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useRef, useEffect, useCallback } = React;
+
+    const Dots = (=> (
+      <span className="inline-flex gap-1 items-center h-5">
+        <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:0ms]" />
+        <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:150ms]" />
+        <span className="w-1.5 h-1.5 bg-current rounded-full animate-bounce [animation-delay:300ms]" />
+      </span>
+    );
+
+    function AIChat() {
+      const [messages, setMessages] = useState([{
+        id: "welcome", from: "ai", text: "**Hi!** I'm *CuraSense AI* - ask me about health, symptoms, diet, exercise!", ts: Date.now()
+      }]);
+      const [input, setInput] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
+      const scrollRef = useRef(null);
+
+      useEffect((=> {
+        if (scrollRef.currentscrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }, [messages, isLoading]);
+
+      const handleSend = useCallback(async (=> {
+        const text = input.trim();
+        if (!text || isLoadingreturn;
+
+        const userMsg = { id: `u-${Date.now()}`, from: "me", text, ts: Date.now() };
+        setMessages(msgs => [...msgs, userMsg]);
+        setInput("");
+        setIsLoading(true);
+
+        try {
+          const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer gsk_no_key_required_demo", // Get FREE key: console.groq.com/keys
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              messages: [
+                { role: "system", content: "You are CuraSense AI. Empathetic health assistant. General advice only. Always recommend doctor. Markdown format." },
+                { role: "user", content: text }
+              ],
+              model: "llama3.1-8b-instant",
+              temperature: 0.7,
+            }),
+          });
+
+          if (!res.ok{
+            throw new Error(`Groq API error: ${res.status}`);
+          }
+
+          const data = await res.json();
+          const reply = data.choices[0]?.message?.content || "No response received.";
+
+          setMessages(msgs => [...msgs, { id: `a-${Date.now()}`, from: "ai", text: reply, ts: Date.now(}]);
+        } catch (err) {
+          console.error(err);
+          setMessages(msgs => [...msgs, {
+            id: `err-${Date.now()}`,
+            from: "ai", 
+            text: `**Demo Mode**\\n\\nGet free Groq API key: console.groq.com/keys (30s setup)\\n\\n**Demo:** Stay hydrated, eat balanced diet, regular checkups. Consult your doctor!`,
+            isError: true,
+            ts: Date.now()
+          }]);
+        } finally {
+          setIsLoading(false);
+        }
+      }, [input, isLoading]);
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey{
+          e.preventDefault();
+          handleSend();
+        }
+      };
+
+      return (
+        <div className="min-h-screen max-w-2xl mx-auto p-6 flex flex-col">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+              CuraSense AI Assistant
+            </h1>
+            <p className="text-xl text-gray-600">Your health companion - powered by Llama 3.1</p>
+          </div>
+
+          <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-4 p-6 bg-white/60 backdrop-blur-xl rounded-3xl border shadow-2xl mb-6">
+            {messages.map(msg => (
+              <div key={msg.id} className={msg.from === "me" ? "flex justify-end" : "flex justify-start"}>
+                <div className={`max-w-[85%] p-5 rounded-3xl shadow-lg ${
+                  msg.from === "me" 
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white" 
+                    : msg.isError 
+                    ? "bg-orange-100 border-2 border-orange-300" 
+                    : "bg-white/80 border border-gray-200"
+                }`}>
+                  {msg.from === "ai" && !msg.isError && (
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+                        🤖
+                      </div>
+                      <span className="text-lg font-bold text-gray-800">CuraSense AI</span>
+                    </div>
+                  )}
+                  {msg.from === "me" ? (
+                    <div className="text-lg">{msg.text}</div>
+                  : (
+                    <div className="prose prose-slate prose-lg max-w-none">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-white/80 p-5 rounded-3xl border shadow-lg max-w-[85%]">
+                  <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-200">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg animate-pulse">
+                      🤖
+                    </div>
+                    <span className="text-lg font-bold text-gray-800">CuraSense AI</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-500">
+                    <Dots />
+                    <span>Thinking...</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="p-4 bg-white/60 backdrop-blur-xl rounded-3xl border shadow-lg flex gap-4 items-end">
+            <Textarea
+              value={input}
+              onChange={(e=> setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask about headache, fever, diet, exercise, sleep..."
+              className="flex-1 resize-none rounded-2xl border-0 bg-white shadow-lg focus:ring-2 focus:ring-blue-500 min-h-[60px] max-h-32 p-4 text-lg"
+              disabled={isLoading}
+            />
+            <Button 
+              onClick={handleSend} 
+              disabled={!input.trim(|| isLoading}
+              className="h-16 w-16 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-xl text-white font-bold text-xl flex items-center justify-center"
+            >
+              {isLoading ? '⏳' : '➤'}
+            </Button>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<AIChat />);
+  </script>
+</body>
+</html>

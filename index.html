@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ✅ TITLE -->
+    <title>CuraSense AI</title>
+
+    <!-- ✅ FAVICON -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- ✅ DESCRIPTION -->
+    <meta
+      name="description"
+      content="CuraSense AI is an intelligent healthcare platform connecting doctors, patients, nurses, and labs."
+    />
+
+    <!-- ✅ AUTHOR -->
+    <meta name="author" content="CuraSense Team" />
+
+    <!-- ✅ OPEN GRAPH -->
+    <meta property="og:title" content="CuraSense AI" />
+    <meta
+      property="og:description"
+      content="Smart AI-powered healthcare platform for modern medical care."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- ✅ TWITTER -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CuraSense AI" />
+    <meta
+      name="twitter:description"
+      content="AI-powered healthcare system for doctors, patients, and labs."
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- ✅ REACT APP -->
+    <!-- Face API for liveness detection -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    
+    <!-- Load models - SSD for better accuracy -->
+    <script>
+      async function loadFaceApiModels() {
+        try {
+          await Promise.all([
+            faceapi.nets.tinyFaceDetector.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models'),
+            faceapi.nets.ssdMobilenetv1.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models'),
+            faceapi.nets.faceLandmark68Net.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models'),
+            faceapi.nets.faceLandmark68TinyNet.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models'),
+            faceapi.nets.faceExpressionNet.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models')
+          ]);
+          console.log('✅ FaceAPI models loaded (Tiny + SSD + Landmarks)');
+          window.faceApiReady = true;
+        } catch (err) {
+          console.error('FaceAPI model load failed:', err);
+          window.faceApiReady = false;
+        }
+      }
+      loadFaceApiModels();
+    </script>
+    
+    <!-- ✅ REACT APP -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

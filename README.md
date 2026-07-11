@@ -1,4 +1,4 @@
-# 🏥 CuraSense AI — Intelligent Healthcare Operating System
+# CuraSense AI — Intelligent Healthcare Operating System
 
 <div align="center">
 
@@ -10,9 +10,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
 [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Radix-black?logo=shadcnui&logoColor=white)](https://ui.shadcn.com)
-[![Gemini AI](https://img.shields.io/badge/AI-Gemini%202.5%20Flash-4285F4?logo=googlegemini&logoColor=white)](https://ai.google.dev)
-[![Groq](https://img.shields.io/badge/AI-Groq%20Llama-FF5500?logo=groq&logoColor=white)](https://groq.com)
-[![OpenAI](https://img.shields.io/badge/AI-GPT--4o%20Mini-412991?logo=openai&logoColor=white)](https://openai.com)
+[![Gemini AI](https://img.shields.io/badge/AI-Gemini-4285F4?logo=googlegemini&logoColor=white)](https://ai.google.dev)
 
 </div>
 
@@ -20,67 +18,67 @@
 
 <div align="center">
 
-### 🩺 *"Smarter care for every role in the hospital."*
+### *"Smarter care for every role in the hospital."*
 
 </div>
 
 ---
 
-## 📖 What is CuraSense?
+## What is CuraSense?
 
 **CuraSense AI** is a full-stack, AI-powered hospital operating system that unifies **doctors**, **patients**, **nurses**, and **laboratories** into one polished, responsive web portal. Built with React + TypeScript + Supabase + shadcn/ui, it delivers secure OTP-based onboarding, real-time vitals dashboards, AI-assisted consultations, voice transcription, lab report analysis, and live human verification — all in a single cohesive experience.
 
-> ⚕️ **Disclaimer:** CuraSense is a **demo/educational platform**. It is not a medical device and does not provide definitive diagnoses. Always consult a licensed healthcare professional.
+> **Disclaimer:** CuraSense is a **demo/educational platform**. It is not a medical device and does not provide definitive diagnoses. Always consult a licensed healthcare professional.
 
 ---
 
-## ✨ Core Capabilities
+## Core Capabilities
 
 <table>
 <tr>
 <td width="50%">
 
-### 🧑‍⚕️ **For Doctors**
-- 📋 AI-assisted consultation screening with symptom probability ranking
-- 🎙️ Voice transcription (Hindi / English / Hinglish) → structured symptom extraction
-- 💊 Smart medicine suggestions linked to detected symptoms
-- 📊 Risk scoring & recovery rate estimation
-- 💬 Patient messaging with auto-reply simulation
-- 📁 Previous consultation history & billing
+### **For Doctors**
+- AI-assisted consultation screening with symptom probability ranking
+- Voice transcription (Hindi / English / Hinglish) → structured symptom extraction
+- Smart medicine suggestions linked to detected symptoms
+- Risk scoring & recovery rate estimation
+- Patient messaging with auto-reply simulation
+- Previous consultation history & billing
 
 </td>
 <td width="50%">
 
-### 🫀 **For Patients**
-- 📊 **Live vitals dashboard** — heart rate, BP, SpO₂, temperature, step count
-- 🤖 **CuraSense AI Chat** — empathetic health companion (Gemini / Groq / OpenAI)
-- 📅 Book appointments (in-person or video) with doctor search
-- 💊 Prescription tracker with refill requests
-- 🧪 Lab test booking & downloadable reports
-- 💳 Bills & payments management
-- 🔐 Mandatory camera-based **human verification** before login
+### **For Patients**
+- **Live vitals dashboard** — heart rate, BP, SpO₂, temperature, step count
+- **CuraSense AI Chat** — empathetic health companion
+- Book appointments (in-person or video) with doctor search
+- Prescription tracker with refill requests
+- Lab test booking & downloadable reports
+- Bills & payments management
+- Mandatory camera-based **human verification** before login
 
 </td>
 </tr>
 <tr>
 <td width="50%">
 
-### 👩‍⚕️ **For Nurses**
-- 🚨 Emergency alert dashboard with critical patient flags
-- 💊 Medicine schedule tracker with dose timing
-- 🛏️ Room assignment & occupancy management
-- 📋 Pending patient queue with priority sorting
-- 📝 Vitals entry form for bedside monitoring
+### **For Nurses**
+- Emergency alert dashboard with critical patient flags
+- Medicine schedule tracker with dose timing
+- Room assignment & occupancy management
+- Pending patient queue with priority sorting
+- Vitals entry form for bedside monitoring
 
 </td>
 <td width="50%">
 
-### 🔬 **For Laboratories**
-- 🧪 Assigned test orders with pending/completed tabs
-- 📤 Report upload workflow
-- 🔍 Patient & test search
-- ✅ One-click "Mark Completed" status updates
-- 📄 Recent reports tracking
+### **For Laboratories**
+- Assigned test orders with pending/completed tabs
+- Report upload workflow
+- Patient & test search
+- One-click "Mark Completed" status updates
+- Recent reports tracking
 
 </td>
 </tr>
@@ -88,43 +86,18 @@
 
 ---
 
-## 🧠 AI Superpowers
 
-CuraSense ships with **6 Supabase Edge Functions** that bring intelligence to every workflow:
-
-| Edge Function | AI Model | What It Does |
-|---|---|---|
-| [`patient-ai-assistant`](supabase/functions/patient-ai-assistant/index.ts:1) | Groq Llama 3.1 / Gemini 1.5 Flash / GPT-4o Mini | Empathetic health Q&A with multi-model fallback chain |
-| [`diagnose-symptoms`](supabase/functions/diagnose-symptoms/index.ts:1) | Gemini 2.5 Flash (tool-calling) | Symptom + vitals → ranked disease probabilities with red flags |
-| [`analyze-consultation`](supabase/functions/analyze-consultation/index.ts:1) | Gemini 2.5 Flash (tool-calling) | Transcript → symptom extraction + medicines + risk score |
-| [`analyze-lab-report`](supabase/functions/analyze-lab-report/index.ts:1) | Gemini 2.5 Flash (tool-calling) | Lab result values → abnormality detection with severity grading |
-| [`transcribe-voice`](supabase/functions/transcribe-voice/index.ts:1) | Gemini 2.5 Flash (audio) | Hindi/English/Hinglish audio → transcript + symptom detection |
-| [`patient-ai-demo`](supabase/functions/patient-ai-demo/index.ts:1) | Rule-based fallback | Offline smart responses when no API key is configured |
-
-### 🔄 AI Fallback Chain
-```
-Gemini API Key provided? → Live Gemini 2.5 Flash
-       ↓ No
-Groq API Key in env?    → Groq Llama 3.1 8B (free tier)
-       ↓ No
-OpenAI Key in env?      → GPT-4o Mini
-       ↓ No
-                         → Smart rule-based demo mode (works offline!)
-```
-
----
-
-## 🔐 Security & Verification
+## Security & Verification
 
 - **OTP-first login** — Phone number + role selection + 4-digit OTP (demo mode shows code in toast)
-- **👤 Live Human Verification** — Camera-based face detection using [face-api.js](https://github.com/justadudewhohacks/face-api.js) with SSD MobileNet + Tiny Face Detector + 68-point landmark detection
+- **Live Human Verification** — Camera-based face detection using [face-api.js](https://github.com/justadudewhohacks/face-api.js) with SSD MobileNet + Tiny Face Detector + 68-point landmark detection
 - **Liveness check** — Motion-based brightness variance analysis prevents photo spoofing
 - **Role-based routing** — Doctor → Dashboard, Patient → PatientDetails, Nurse → Nurse Station, Lab → Lab System
 - **HIPAA-ready** architecture with encrypted localStorage and Supabase Row-Level Security
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 <div align="center">
 
@@ -151,26 +124,26 @@ OpenAI Key in env?      → GPT-4o Mini
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 CuraSense-AI/
 ├── public/
-│   ├── favicon.svg              # 🏥 Medical cross icon
+│   ├── favicon.svg              # Medical cross icon
 │   ├── placeholder.svg
 │   └── robots.txt
 ├── src/
 │   ├── assets/
-│   │   └── medical-hero.jpg     # 🖼️ Hero banner image
+│   │   └── medical-hero.jpg     # Hero banner image
 │   ├── components/
-│   │   ├── medical/             # 🩺 Shared medical components
-│   │   │   ├── AIChat.tsx       # 🤖 Core AI chat widget (Gemini live + offline fallback)
+│   │   ├── medical/             # Shared medical components
+│   │   │   ├── AIChat.tsx       # Core AI chat widget
 │   │   │   ├── AIChat-FIXED.tsx
 │   │   │   ├── AIChatStandalone.tsx
-│   │   │   ├── AppHeader.tsx    # 📱 Unified app header
-│   │   │   ├── Logo.tsx         # 🏥 CuraSense logo component
+│   │   │   ├── AppHeader.tsx    # Unified app header
+│   │   │   ├── Logo.tsx         # CuraSense logo component
 │   │   │   └── SmartLogo.tsx
-│   │   ├── nurse/               # 👩‍⚕️ Nurse-specific components
+│   │   ├── nurse/               # Nurse-specific components
 │   │   │   ├── EmergencyAlert.tsx
 │   │   │   ├── MedicineSchedule.tsx
 │   │   │   ├── NurseHeader.tsx
@@ -178,59 +151,59 @@ CuraSense-AI/
 │   │   │   ├── RoomAssignment.tsx
 │   │   │   ├── StatCard.tsx
 │   │   │   └── VitalsEntry.tsx
-│   │   ├── lab/                 # 🔬 Lab-specific components
+│   │   ├── lab/                 # Lab-specific components
 │   │   │   ├── AssignedTests.tsx
 │   │   │   ├── LabHeader.tsx
 │   │   │   ├── RecentReports.tsx
 │   │   │   └── ReportUpload.tsx
-│   │   └── ui/                  # 🧩 48 shadcn/ui components
-│   ├── hooks/                   # 🪝 Custom React hooks
+│   │   └── ui/                  # 48 shadcn/ui components
+│   ├── hooks/                   # Custom React hooks
 │   ├── integrations/
-│   │   └── supabase/            # 🔗 Supabase client + generated types
-│   ├── lib/                     # 🛠️ Utilities
-│   │   ├── faceUtils.ts         # 👤 Face detection & liveness check
+│   │   └── supabase/            # Supabase client + generated types
+│   ├── lib/                     # Utilities
+│   │   ├── faceUtils.ts         # Face detection & liveness check
 │   │   └── utils.ts             # cn() classname merger
-│   ├── pages/                   # 📄 12 lazy-loaded routes
-│   │   ├── Index.tsx            # 🏠 Landing page
-│   │   ├── Login.tsx            # 🔐 OTP login with role selection
-│   │   ├── Details.tsx          # 👤 Doctor details + face verification
-│   │   ├── Dashboard.tsx        # 📊 Doctor dashboard
-│   │   ├── NewData.tsx          # 🆕 New consultation
-│   │   ├── PreviousData.tsx     # 📁 Consultation history
-│   │   ├── PatientDetails.tsx   # 👤 Patient details + face verification
-│   │   ├── PatientDashboard.tsx # 🫀 Full patient portal
-│   │   ├── Nurse.tsx            # 👩‍⚕️ Nurse station
-│   │   ├── Lab.tsx              # 🔬 Laboratory system
-│   │   ├── DoctorMessages.tsx   # 💬 Doctor-patient messaging
-│   │   ├── ComingSoon.tsx       # 🚧 Placeholder
+│   ├── pages/                   # 12 lazy-loaded routes
+│   │   ├── Index.tsx            # Landing page
+│   │   ├── Login.tsx            # OTP login with role selection
+│   │   ├── Details.tsx          # Doctor details + face verification
+│   │   ├── Dashboard.tsx        # Doctor dashboard
+│   │   ├── NewData.tsx          # New consultation
+│   │   ├── PreviousData.tsx     # Consultation history
+│   │   ├── PatientDetails.tsx   # Patient details + face verification
+│   │   ├── PatientDashboard.tsx # Full patient portal
+│   │   ├── Nurse.tsx            # Nurse station
+│   │   ├── Lab.tsx              # Laboratory system
+│   │   ├── DoctorMessages.tsx   # Doctor-patient messaging
+│   │   ├── ComingSoon.tsx       # Placeholder
 │   │   └── NotFound.tsx         # 404
-│   ├── test/                    # 🧪 Vitest setup + example test
-│   ├── App.tsx                  # 🧭 Root app with lazy routes + providers
-│   ├── main.tsx                 # 🚀 Entry point
-│   └── index.css                # 🎨 Global styles + CSS variables
+│   ├── test/                    # Vitest setup + example test
+│   ├── App.tsx                  # Root app with lazy routes + providers
+│   ├── main.tsx                 # Entry point
+│   └── index.css                # Global styles + CSS variables
 ├── supabase/
-│   ├── functions/               # ⚡ 6 Edge Functions (Deno)
+│   ├── functions/               # 6 Edge Functions (Deno)
 │   │   ├── patient-ai-assistant/
 │   │   ├── diagnose-symptoms/
 │   │   ├── analyze-consultation/
 │   │   ├── analyze-lab-report/
 │   │   ├── transcribe-voice/
 │   │   └── patient-ai-demo/
-│   ├── migrations/              # 🗄️ 4 SQL migration files
-│   └── config.toml              # ⚙️ Supabase local config
-├── index.html                   # 🌐 Entry HTML with face-api.js CDN
-├── package.json                 # 📦 Dependencies
-├── vite.config.ts               # ⚡ Vite config with path aliases
-├── tailwind.config.ts           # 🎨 Tailwind + custom theme tokens
-├── tsconfig.json                # 🔧 TypeScript config
-├── vercel.json                  # ▲ Vercel deployment config
-├── components.json              # 🧩 shadcn/ui config
-└── README.md                    # 📖 You are here!
+│   ├── migrations/              # 4 SQL migration files
+│   └── config.toml              # Supabase local config
+├── index.html                   # Entry HTML with face-api.js CDN
+├── package.json                 # Dependencies
+├── vite.config.ts               # Vite config with path aliases
+├── tailwind.config.ts           # Tailwind + custom theme tokens
+├── tsconfig.json                # TypeScript config
+├── vercel.json                  # Vercel deployment config
+├── components.json              # shadcn/ui config
+└── README.md                    # Project documentation
 ```
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - **Node.js** ≥ 18
@@ -298,11 +271,11 @@ npm run preview
 
 ---
 
-## 🎯 Demo Flow
+## Demo Flow
 
 1. **Landing Page** → See role cards & highlights
 2. **Login** → Enter phone + select role (Doctor / Patient / Nurse / Lab) → OTP sent
-3. **Face Verification** → Camera activates → face-api.js detects human presence → ✅ verified
+3. **Face Verification** → Camera activates → face-api.js detects human presence → verified
 4. **Role Dashboard** → Role-specific UI with live data, AI tools, and workflows
 
 | Role | Post-Login Route | Key Feature |
@@ -314,7 +287,7 @@ npm run preview
 
 ---
 
-## 🎨 Design System
+## Design System
 
 CuraSense uses a custom medical-grade design system built on Tailwind CSS + shadcn/ui:
 
@@ -332,26 +305,26 @@ CuraSense uses a custom medical-grade design system built on Tailwind CSS + shad
 
 ---
 
-## 📊 Page Routes
+## Page Routes
 
 | Route | Page | Lazy Loaded |
 |---|---|---|
-| `/` | Landing Page | ✅ |
-| `/login` | OTP Login | ✅ |
-| `/details` | Doctor Details + Face Verify | ✅ |
-| `/dashboard` | Doctor Dashboard | ✅ |
-| `/new-data` | New Consultation | ✅ |
-| `/previous-data` | Consultation History | ✅ |
-| `/patient-details` | Patient Details + Face Verify | ✅ |
-| `/patient-dashboard` | Patient Portal | ✅ |
-| `/nurse` | Nurse Station | ✅ |
-| `/lab` | Laboratory System | ✅ |
-| `/doctor-messages` | Doctor-Patient Chat | ✅ |
-| `*` | 404 Not Found | ✅ |
+| `/` | Landing Page | Yes |
+| `/login` | OTP Login | Yes |
+| `/details` | Doctor Details + Face Verify | Yes |
+| `/dashboard` | Doctor Dashboard | Yes |
+| `/new-data` | New Consultation | Yes |
+| `/previous-data` | Consultation History | Yes |
+| `/patient-details` | Patient Details + Face Verify | Yes |
+| `/patient-dashboard` | Patient Portal | Yes |
+| `/nurse` | Nurse Station | Yes |
+| `/lab` | Laboratory System | Yes |
+| `/doctor-messages` | Doctor-Patient Chat | Yes |
+| `*` | 404 Not Found | Yes |
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run tests once
@@ -365,7 +338,7 @@ Test framework: **Vitest 3.2** + **@testing-library/react** + **jsdom**
 
 ---
 
-## 📦 Key Dependencies
+## Key Dependencies
 
 | Package | Purpose |
 |---|---|
@@ -385,7 +358,7 @@ Test framework: **Vitest 3.2** + **@testing-library/react** + **jsdom**
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This is a **Hack India** hackathon project. Contributions, issues, and feature requests are welcome!
 
@@ -397,13 +370,13 @@ This is a **Hack India** hackathon project. Contributions, issues, and feature r
 
 ---
 
-## 📜 License
+## License
 
 This project is created for **Hack India** hackathon. All rights reserved by the CuraSense Team.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Abhix6677** — [GitHub Profile](https://github.com/Abhix6677)
 
@@ -411,10 +384,9 @@ This project is created for **Hack India** hackathon. All rights reserved by the
 
 <div align="center">
 
-### 🏥 *Built with ❤️ for Hack India*
+### *Built for Hack India*
 
-![Made with Love](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-red?style=for-the-badge)
-![Hack India](https://img.shields.io/badge/Hack-India%202026-FF6B6B?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiI+PHBhdGggZD0iTTEyIDJMMiA3bDEwIDUgMTAtNS0xMC01eiIvPjxwYXRoIGQ9Ik0yIDE3bDEwIDUgMTAtNSIvPjxwYXRoIGQ9Ik0yIDEybDEwIDUgMTAtNSIvPjwvc3ZnPg==&labelColor=FF4500)
+![Hack India](https://img.shields.io/badge/Hack-India%202026-FF6B6B?style=for-the-badge)
 
 **CuraSense AI** — *Smarter care, together.*
 

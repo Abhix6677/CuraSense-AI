@@ -250,10 +250,8 @@ supabase functions deploy patient-ai-demo
 ```
 
 Set secrets in Supabase Dashboard → Edge Functions:
-- `LOVABLE_API_KEY` — for AI gateway access
-- `GEMINI_API_KEY` — for Gemini direct calls
-- `GROQ_API_KEY` — for Groq fallback
-- `OPENAI_API_KEY` — for OpenAI fallback
+- `LOVABLE_API_KEY` — required for AI-powered diagnosis, consultation analysis, lab report analysis, and voice transcription.
+- `GEMINI_API_KEY` — optional for the patient AI assistant when using direct Gemini calls.
 
 ### 4. Run Locally
 

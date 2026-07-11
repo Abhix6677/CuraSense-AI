@@ -1,4 +1,4 @@
-# CuraSense AI — Intelligent Healthcare Operating System
+# 🏥 CuraSense AI — Intelligent Healthcare Operating System
 
 <div align="center">
 
@@ -18,13 +18,13 @@
 
 <div align="center">
 
-### *"Smarter care for every role in the hospital."*
+### 🩺 *"Smarter care for every role in the hospital."*
 
 </div>
 
 ---
 
-## What is CuraSense?
+## 📖 What is CuraSense?
 
 **CuraSense AI** is a full-stack, AI-powered hospital operating system that unifies **doctors**, **patients**, **nurses**, and **laboratories** into one polished, responsive web portal. Built with React + TypeScript + Supabase + shadcn/ui, it delivers secure OTP-based onboarding, real-time vitals dashboards, AI-assisted consultations, voice transcription, lab report analysis, and live human verification — all in a single cohesive experience.
 
@@ -32,13 +32,13 @@
 
 ---
 
-## Core Capabilities
+## ✨ Core Capabilities
 
 <table>
 <tr>
 <td width="50%">
 
-### **For Doctors**
+### 🧑‍⚕️ **For Doctors**
 - AI-assisted consultation screening with symptom probability ranking
 - Voice transcription (Hindi / English / Hinglish) → structured symptom extraction
 - Smart medicine suggestions linked to detected symptoms
@@ -49,7 +49,7 @@
 </td>
 <td width="50%">
 
-### **For Patients**
+### 🫀 **For Patients**
 - **Live vitals dashboard** — heart rate, BP, SpO₂, temperature, step count
 - **CuraSense AI Chat** — empathetic health companion
 - Book appointments (in-person or video) with doctor search
@@ -63,7 +63,7 @@
 <tr>
 <td width="50%">
 
-### **For Nurses**
+### 👩‍⚕️ **For Nurses**
 - Emergency alert dashboard with critical patient flags
 - Medicine schedule tracker with dose timing
 - Room assignment & occupancy management
@@ -73,7 +73,7 @@
 </td>
 <td width="50%">
 
-### **For Laboratories**
+### 🔬 **For Laboratories**
 - Assigned test orders with pending/completed tabs
 - Report upload workflow
 - Patient & test search
@@ -87,7 +87,7 @@
 ---
 
 
-## Security & Verification
+## 🔐 Security & Verification
 
 - **OTP-first login** — Phone number + role selection + 4-digit OTP (demo mode shows code in toast)
 - **Live Human Verification** — Camera-based face detection using [face-api.js](https://github.com/justadudewhohacks/face-api.js) with SSD MobileNet + Tiny Face Detector + 68-point landmark detection
@@ -97,7 +97,7 @@
 
 ---
 
-## Tech Stack
+## 🏗️ Tech Stack
 
 <div align="center">
 
@@ -124,7 +124,7 @@
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 CuraSense-AI/
@@ -203,7 +203,7 @@ CuraSense-AI/
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 - **Node.js** ≥ 18
@@ -271,7 +271,7 @@ npm run preview
 
 ---
 
-## Demo Flow
+## 🎯 Demo Flow
 
 1. **Landing Page** → See role cards & highlights
 2. **Login** → Enter phone + select role (Doctor / Patient / Nurse / Lab) → OTP sent
@@ -287,7 +287,7 @@ npm run preview
 
 ---
 
-## Design System
+## 🎨 Design System
 
 CuraSense uses a custom medical-grade design system built on Tailwind CSS + shadcn/ui:
 
@@ -305,7 +305,7 @@ CuraSense uses a custom medical-grade design system built on Tailwind CSS + shad
 
 ---
 
-## Page Routes
+## 📊 Page Routes
 
 | Route | Page | Lazy Loaded |
 |---|---|---|
@@ -324,7 +324,7 @@ CuraSense uses a custom medical-grade design system built on Tailwind CSS + shad
 
 ---
 
-## Testing
+## 🧪 Testing
 
 ```bash
 # Run tests once
@@ -338,7 +338,7 @@ Test framework: **Vitest 3.2** + **@testing-library/react** + **jsdom**
 
 ---
 
-## Key Dependencies
+## 📦 Key Dependencies
 
 | Package | Purpose |
 |---|---|
@@ -358,7 +358,7 @@ Test framework: **Vitest 3.2** + **@testing-library/react** + **jsdom**
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 This is a **Hack India** hackathon project. Contributions, issues, and feature requests are welcome!
 
@@ -370,13 +370,13 @@ This is a **Hack India** hackathon project. Contributions, issues, and feature r
 
 ---
 
-## License
+## 📜 License
 
 This project is created for **Hack India** hackathon. All rights reserved by the CuraSense Team.
 
 ---
 
-## Author
+## 👨‍💻 Author
 
 **Abhix6677** — [GitHub Profile](https://github.com/Abhix6677)
 
@@ -384,7 +384,7 @@ This project is created for **Hack India** hackathon. All rights reserved by the
 
 <div align="center">
 
-### *Built for Hack India*
+### 🏥 *Built for Hack India*
 
 ![Hack India](https://img.shields.io/badge/Hack-India%202026-FF6B6B?style=for-the-badge)
 
